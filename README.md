@@ -23,3 +23,6 @@ or their account will be deleted from the database alongside the sales and stock
 
 ### Staff Salaries
 The job portal can accurately calculate staff payouts.
+
+## Development Purposes
+**SOON TO DISCUSS**
