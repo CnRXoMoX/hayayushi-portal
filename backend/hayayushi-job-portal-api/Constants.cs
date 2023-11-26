@@ -22,6 +22,13 @@ namespace hayayushi_job_portal_api
             public string pk { get; set; }
         }
 
+        public class UpdateUser
+        {
+            public string username { get; set; }
+            public string role { get; set; }
+            public string pk { get; set; }
+        }
+
         public class PKFetchUsername
         {
             public string pk { get; set; }

@@ -36,7 +36,7 @@ const Login = () => {
 
           <Box mb={{base: "4", md: "6"}}>
             <Text mb={{base: "2", md: "4"}} fontSize={{base: "sm", md: "md"}}>Username</Text>
-            <Input type="email" placeholder="Enter username" value={username} onChange={(e) => setUsername(e.target.value)}/>
+            <Input type="text" placeholder="Enter username" value={username} onChange={(e) => setUsername(e.target.value)}/>
           </Box>
 
           <Box mb={{base: "4", md: "6"}}>

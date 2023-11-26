@@ -11,7 +11,7 @@ namespace hayayushi_job_portal_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FetchUsername : ControllerBase
+    public class FetchUserData : ControllerBase
     {
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Constants.PKFetchUsername user)
@@ -31,7 +31,7 @@ namespace hayayushi_job_portal_api.Controllers
 
                 if (data != null)
                 {
-                    return Ok(new { data.username });
+                    return Ok(data);
                 }
                 return NotFound("No user found");
             }

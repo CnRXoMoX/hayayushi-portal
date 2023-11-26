@@ -101,8 +101,8 @@ export default function NavBar() {
                 </Box> {user && (
                   <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
                     {LinkItems.map((link) => (
-                    <NavLink key={link.name} href={link.href}>{link.name}</NavLink>
-                  ))}
+                      <NavLink key={link.name} href={link.href}>{link.name}</NavLink>
+                    ))}
                   </HStack>
                 )}
               </HStack>

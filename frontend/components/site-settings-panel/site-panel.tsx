@@ -21,7 +21,7 @@ interface LinkItemProps {
 
 const LinkItems: Array<LinkItemProps> = [
     { name: 'Staff List', href: '/SiteSettings/Staffs', icon: IoIosPersonAdd },
-    { name: 'Manage Accounts', href: "/SiteSettings/ManageAccounts", icon: IoIosContact }
+    { name: 'Manage Accounts', href: "/SiteSettings/ManageAccounts?page=1", icon: IoIosContact }
 ];
 
 const SiteAdminMenu = () => {

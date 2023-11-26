@@ -22,7 +22,7 @@ const SiteSettings: NextPage = ({ data }) => {
                 <Text textAlign="center" fontWeight="bold" fontSize={32}>Site Admin Panel</Text>
             </Flex>
             <Flex minHeight='100%' width='100%'>
-                <Text fontWeight="semibold" fontSize={24}>Welcome, {data.username}</Text>
+                <Text fontWeight="semibold" fontSize={24}>Welcome, {data}</Text>
             </Flex>
             <Flex minHeight='100%' width='100%' mt={10}>
                 <AdminMenu />
@@ -44,13 +44,13 @@ export const getServerSideProps = async (context) => {
         const decodedToken = await Promise.resolve(jwt.verify(userJWT, secretKey));
         const pk  = decodedToken.nameid;
 
-        const response = await axios.post(`${API_URL}/FetchUsername`, {
+        const response = await axios.post(`${API_URL}/FetchUserData`, {
             pk: pk,
         }, {
             httpsAgent: new https.Agent({ rejectUnauthorized: false }),
         });
 
-        const data = response.data;
+        const data = response.data.username;
 
         return {
             props: {

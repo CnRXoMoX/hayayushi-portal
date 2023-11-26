@@ -11,11 +11,15 @@ import {
   import React from "react";
 
   function TablesTableRow(props) {
-    const { username, role, pk } = props;
+    const { username, role, pk, onEdit } = props;
     const textColor = useColorModeValue("gray.500", "white");
     const titleColor = useColorModeValue("gray.700", "white");
     const bgStatus = useColorModeValue("gray.400", "navy.900");
     const borderColor = useColorModeValue("gray.200", "gray.600");
+
+    const handleEditClick = () => {
+      onEdit();
+    }
 
     return (
       <Tr>
@@ -47,7 +51,7 @@ import {
           </Text>
         </Td>
         <Td borderColor={borderColor}>
-          <Button p="0px" bg="transparent" variant="no-effects">
+          <Button p="0px" bg="transparent" variant="no-effects" onClick={handleEditClick}>
             <Text
               fontSize="md"
               color="gray.400"
