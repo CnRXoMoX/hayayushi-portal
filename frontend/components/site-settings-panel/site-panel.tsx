@@ -21,12 +21,13 @@ interface LinkItemProps {
 
 const LinkItems: Array<LinkItemProps> = [
     { name: 'Staff List', href: '/SiteSettings/Staffs', icon: IoIosPersonAdd },
-    { name: 'Manage Accounts', href: "/SiteSettings/ManageAccounts?page=1", icon: IoIosContact }
+    { name: 'Manage Accounts', href: "/SiteSettings/ManageAccounts?page=1", icon: IoIosContact },
+    { name: 'Staff Attendance', href: "/SiteSettings/StaffAttendance", icon: IoIosContact }
 ];
 
 const SiteAdminMenu = () => {
     return (
-        <Grid templateColumns={['repeat(2, 1fr)', 'repeat(5, 1ft)']} gap={5} mb="500px">
+        <Grid templateColumns={['repeat(5, 1fr)', 'repeat(5, 1fr)']} gap={10} mb="500px">
             {LinkItems.map((link) => (
                 <NavItem key={link.name} icon={link.icon} href={link.href}>
                     {link.name}
@@ -55,7 +56,7 @@ const NavItem = ({ icon, href, children, ...rest }: NavItemProps) => {
                 role="group"
                 cursor="pointer"
                 _hover={{
-                bg: '#FFD664',
+                bg: 'teal',
                 color: 'white',
                 }}
                 {...rest}>
