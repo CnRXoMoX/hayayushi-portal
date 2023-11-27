@@ -81,6 +81,10 @@ export default function NavBar() {
     const handleSiteSettings = () => {
       router.push("/SiteSettings");
     }
+    const handleAccountSettings = () => {
+      router.push("/SiteSettings/AccountSettings");
+    }
+
 
     return (
       <>
@@ -124,7 +128,7 @@ export default function NavBar() {
                       />
                     </MenuButton>
                     <MenuList>
-                      <MenuItem>Account</MenuItem>
+                      <MenuItem onClick={handleAccountSettings}>Account</MenuItem>
                       {hasAllowedRole && (
                         <MenuItem onClick={handleSiteSettings}>Site Settings</MenuItem>
                       )}

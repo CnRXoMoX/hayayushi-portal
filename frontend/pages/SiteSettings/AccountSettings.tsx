@@ -6,16 +6,14 @@ import {
     Container,
 } from '@chakra-ui/react';
 
-import AccountsList from '@/components/accounts-table';
+import AccountsPage from '@/components/Account';
 
-const ManageAccounts: NextPage = ({ data }) => {
+const AccountSettings: NextPage = () => {
     return (
         <Container maxW="container.xl" p={10}>
-            <AccountsList />
+            <AccountsPage />
         </Container>
     )
 }
 
-export default ManageAccounts
-
-
+export default AccountSettings
