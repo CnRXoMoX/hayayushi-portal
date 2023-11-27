@@ -14,6 +14,7 @@ namespace hayayushi_job_portal_api
         public static void Main(string[] args)
         {
             DotNetEnv.Env.Load();
+            Database.UpdateDatabase(); // 
 
             CreateHostBuilder(args).Build().Run();
         }
