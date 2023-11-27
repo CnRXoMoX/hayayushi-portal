@@ -10,8 +10,6 @@ import { JWT_KEY, API_URL } from '@/config';
 
 import HomeLogin from '@/pages/HomeLogin';
 import Home from '@/pages/index';
-import Login from '@/pages/Login';
-import Register from '@/pages/Register';
 
 import SiteSettings from '@/pages/SiteSettings/index';
 import ManageAccounts from '@/pages/SiteSettings/ManageAccounts';
@@ -22,9 +20,6 @@ const AuthChecks = ({ children }: {children: React.ReactNode }) => {
     const toast = useToast();
 
     const protectedRoutes = [
-        { path: '/Login', component: Login, isAuthenticated: false },
-        { path: '/Register', component: Register, isAuthenticated: false },
-
         { path: '/HomeLogin', component: HomeLogin, isAuthenticated: true, allowedRoles: ['Manager', 'Kitchen Porter'] },
         { path: '/', component: Home, isAuthenticated: true, allowedRoles: ['Kitchen Porter', 'Commis Chef', 'Line Cook', 'Station Chef', 'Second Chef', 'Executive Chef', 'Manager'] },
 
@@ -36,6 +31,18 @@ const AuthChecks = ({ children }: {children: React.ReactNode }) => {
         const fetchData = async () => {
             const isProtectedRoute = protectedRoutes.some((route) => route.path === router.pathname);
 
+            const userJWT = Cookies.get('jwt');
+
+            if(router.pathname === '/Login' && userJWT) {
+                router.push("/");
+                return;
+            }
+
+            if(router.pathname === '/Register' && userJWT) {
+                router.push("/");
+                return;
+            }
+
             if(isProtectedRoute) {
                 const userJWT = Cookies.get('jwt');
                 const secretKey = JWT_KEY;
@@ -45,20 +52,10 @@ const AuthChecks = ({ children }: {children: React.ReactNode }) => {
                     return;
                 }
 
-                if(router.pathname === '/Login' && userJWT) {
-                    router.push("/");
-                    return;
-                }
-
-                if(router.pathname === '/Register' && userJWT) {
-                    router.push("/");
-                    return;
-                }
-
                 const decodedToken = jwt.decode(userJWT, secretKey);
                 const userRole = decodedToken && decodedToken.role;
 
-                // Reassure us that they didn't edited the token.
+                 // Reassure us that they didn't edited the token.
                 const response = await axios.post(`${API_URL}/ValidateToken`, {
                     nameid: decodedToken.nameid,
                     role: decodedToken.role

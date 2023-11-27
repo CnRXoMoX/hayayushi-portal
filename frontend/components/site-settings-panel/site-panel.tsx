@@ -16,7 +16,7 @@ import { ReactText } from 'react';
 interface LinkItemProps {
     name: string;
     href: string;
-    icon: iconType;
+    icon: IconType;
 }
 
 const LinkItems: Array<LinkItemProps> = [

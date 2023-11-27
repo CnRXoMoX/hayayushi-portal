@@ -14,6 +14,8 @@ import {
     Link
   } from "@chakra-ui/react";
 
+import { API_URL } from '@/config';
+
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
