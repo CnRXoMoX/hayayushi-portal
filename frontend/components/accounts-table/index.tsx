@@ -3,7 +3,7 @@ import axios from 'axios';
 import queryString from 'query-string';
 import https from 'https';
 import { useToast } from '@chakra-ui/react'
-
+import { useRouter } from 'next/router';
 
 import {
     TableContainer,
@@ -42,11 +42,79 @@ const RoleItems: Array<RoleItemProps> = [
     { name: 'Kitchen Porter' }
 ];
 
+const DeleteAccountConfirm = ({ isOpen, onClose, userID, currentPage }) => {
+    const toast = useToast();
+    const router = useRouter();
+
+    const handleDeleteAccount = async () => {
+        const response = await axios.post(`${API_URL}/DeleteUserAccount`, {
+            pk: userID
+        })
+        .then(response => {
+            if(response.status === 200) {
+                window.location.reload(false);
+                router.push(`/SiteSettings/ManageAccounts?page=${currentPage}`);
+                toast({
+                    title: 'User Deleted',
+                    description: 'You\'ve successfuly deleted an account!',
+                    status: 'warning',
+                    isClosable: true,
+                });
+            }
+        })
+        .catch(error => {
+            console.log('Error:', error.message);
+            console.log('Stack trace:', error.stack);
+            if (error.response) {
+                console.log('Response data:', error.response.data);
+                console.log('Response status:', error.response.status);
+                if(error.response.status === 400) {
+                    toast({
+                        title: 'Error!',
+                        description: 'Database Error!',
+                        status: 'error',
+                        isClosable: true,
+                    })
+                    router.push('/');
+                    return;
+                }
+            }
+        });
+    }
+
+    return (
+        <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent>
+                <ModalHeader>Delete Account</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                    <Text>
+                        Are you sure to delete this user?
+                    </Text>
+                    <Button w="full" colorScheme="red" onClick={handleDeleteAccount}>Confirm</Button>
+                </ModalBody>
+            </ModalContent>
+        </Modal>
+    )
+}
+
 const EditUserModal = ({ isOpen, onClose, userID, currentPage, onUpdateTable }) => {
     const [userName, setUsername] = useState(null);
     const [updatedUsername, setUpdatedUsername] = useState(null);
     const [role, setRole] = useState(null);
     const toast = useToast();
+    const router = useRouter();
+
+    const [deleteUser, setDeleteUser] = useState(false);
+
+    const handleShowDelete = () => {
+        setDeleteUser(true);
+    }
+
+    const handleCloseEdit = () => {
+        setDeleteUser(false);
+    }
 
     const handleSaveAccount = async () => {
         const response = await axios.post(`${API_URL}/UpdateUserAccount`, {
@@ -98,6 +166,17 @@ const EditUserModal = ({ isOpen, onClose, userID, currentPage, onUpdateTable }) 
             })
             .then(response => {
                 if(response.status === 200) {
+                    if(response.data.username === 'Root') {
+                        toast({
+                            title: 'Error',
+                            description: 'You cant edit the Root account!',
+                            status: 'error',
+                            isClosable: true
+                        });
+                        onClose();
+                        return;
+                    }
+
                     setUsername(response.data.username);
                     setUpdatedUsername(response.data.username);
                     setRole(response.data.role);
@@ -128,10 +207,11 @@ const EditUserModal = ({ isOpen, onClose, userID, currentPage, onUpdateTable }) 
                     <Button w="full" colorScheme="yellow" mb={5}>Reset Password</Button>
                     <Flex direction="row" justify="space-between">
                         <Button w="full" colorScheme="green" m={2} onClick={handleSaveAccount}>Save</Button>
-                        <Button w="full" colorScheme="red" m={2}>Delete Account</Button>
+                        <Button w="full" colorScheme="red" m={2} onClick={handleShowDelete}>Delete Account</Button>
                     </Flex>
                 </ModalBody>
             </ModalContent>
+            <DeleteAccountConfirm isOpen={!!deleteUser} onClose={handleCloseEdit} userID={userID} currentPage={currentPage} />
         </Modal>
     )
 }
@@ -146,6 +226,7 @@ const AccountsList = () => {
     const itemsPerPage = 10; // Adjust the number of items per page as needed
 
     const handleEdit = (userID) => {
+
         setEditingUserID(userID);
     }
 

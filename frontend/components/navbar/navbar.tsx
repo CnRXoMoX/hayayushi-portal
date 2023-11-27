@@ -29,6 +29,7 @@ import { JWT_KEY } from '@/config';
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Home', href: '/' },
   { name: 'Dashboard', href: "/HomeLogin" },
+  { name: 'Attendance', href: "/Attendance" },
   { name: 'Staff', href: "/" },
   { name: 'Sales', href: "/" }
 ]
