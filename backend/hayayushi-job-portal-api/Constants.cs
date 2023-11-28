@@ -45,5 +45,27 @@ namespace hayayushi_job_portal_api
             public string nameid { get; set; }
             public string role { get; set; }
         }
+
+        public class ClockRecord
+        {
+            public int AttendanceId { get; set; }
+            public int UserId { get; set; }
+            public DateTime ClockIn { get; set; }
+            public DateTime? ClockOut { get; set; }
+        }
+
+        public class ClockTableRecord
+        {
+            public DateTime ClockIn { get; set; }
+            public DateTime? ClockOut { get; set; }
+            public int TotalMinutes { get; set; }
+        }
+
+        public class UsersAttendanceTotal
+        {
+            public int UserId { get; set; }
+            public DateTime Date { get; set; }
+            public int TotalMinutes { get; set; }
+        }
     }
 }

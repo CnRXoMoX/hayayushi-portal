@@ -10,6 +10,8 @@ namespace hayayushi_job_portal_api
         public static void UpdateDatabase()
         {
             DatabaseTables.UsersTable();
+            DatabaseTables.UsersAttendanceTable();
+            DatabaseTables.UsersAttendanceTotalTable();
         }
     }
 }
