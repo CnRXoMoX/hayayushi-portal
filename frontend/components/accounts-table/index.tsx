@@ -42,6 +42,47 @@ const RoleItems: Array<RoleItemProps> = [
     { name: 'Kitchen Porter' }
 ];
 
+const ResetPasswordInfo = ({ isOpen, onClose, userID, userName }) => {
+    const toast = useToast();
+    const [password, setPassword] = useState(null);
+
+    useEffect(() => {
+        async function fetchAsync() {
+            const response = await axios.post(`${API_URL}/ResetUserPassword`, {
+                pk: userID,
+            })
+            .then(response => {
+                if(response.status === 200) {
+                    setPassword(response.data);
+                }
+            });
+        }
+
+        if(isOpen && userID) { // Fetch only when it is opened and have a userID!
+            fetchAsync();
+        }
+    }, [isOpen]);
+
+    return  (
+        <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent>
+                <ModalHeader>Reset Account Password</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                    <Text>
+                        Username: {userName}
+                    </Text>
+                    <Text>
+                        Password: {password}
+                    </Text>
+                    <Button w="full" colorScheme="green" onClick={onClose}>Done</Button>
+                </ModalBody>
+            </ModalContent>
+        </Modal>
+    )
+}
+
 const DeleteAccountConfirm = ({ isOpen, onClose, userID, currentPage }) => {
     const toast = useToast();
     const router = useRouter();
@@ -107,6 +148,15 @@ const EditUserModal = ({ isOpen, onClose, userID, currentPage, onUpdateTable }) 
     const router = useRouter();
 
     const [deleteUser, setDeleteUser] = useState(false);
+    const [resetUserPw, setResetUserPw] = useState(false);
+
+    const handleShowResetPW = () => {
+        setResetUserPw(true);
+    }
+
+    const handleCloseResetPW = () => {
+        setResetUserPw(false);
+    }
 
     const handleShowDelete = () => {
         setDeleteUser(true);
@@ -204,7 +254,7 @@ const EditUserModal = ({ isOpen, onClose, userID, currentPage, onUpdateTable }) 
                                 <option key={roleLoop.name} value={roleLoop.name}>{roleLoop.name}</option>
                             ))}
                     </Select>
-                    <Button w="full" colorScheme="yellow" mb={5}>Reset Password</Button>
+                    <Button w="full" colorScheme="yellow" mb={5} onClick={handleShowResetPW}>Reset Password</Button>
                     <Flex direction="row" justify="space-between">
                         <Button w="full" colorScheme="green" m={2} onClick={handleSaveAccount}>Save</Button>
                         <Button w="full" colorScheme="red" m={2} onClick={handleShowDelete}>Delete Account</Button>
@@ -212,6 +262,7 @@ const EditUserModal = ({ isOpen, onClose, userID, currentPage, onUpdateTable }) 
                 </ModalBody>
             </ModalContent>
             <DeleteAccountConfirm isOpen={!!deleteUser} onClose={handleCloseEdit} userID={userID} currentPage={currentPage} />
+            <ResetPasswordInfo isOpen={!!resetUserPw} onClose={handleCloseResetPW} userID={userID} userName={userName} />
         </Modal>
     )
 }
