@@ -8,7 +8,6 @@ import { useToast } from '@chakra-ui/react'
 
 import { JWT_KEY, API_URL } from '@/config';
 
-import HomeLogin from '@/pages/HomeLogin';
 import Home from '@/pages/index';
 
 import SiteSettings from '@/pages/SiteSettings/index';
@@ -20,7 +19,6 @@ const AuthChecks = ({ children }: {children: React.ReactNode }) => {
     const toast = useToast();
 
     const protectedRoutes = [
-        { path: '/HomeLogin', component: HomeLogin, isAuthenticated: true, allowedRoles: ['Manager', 'Kitchen Porter'] },
         { path: '/', component: Home, isAuthenticated: true, allowedRoles: ['Kitchen Porter', 'Commis Chef', 'Line Cook', 'Station Chef', 'Second Chef', 'Executive Chef', 'Manager'] },
 
         { path: '/SiteSettings', component: SiteSettings, isAuthenticated: true, allowedRoles: ['Manager'] },

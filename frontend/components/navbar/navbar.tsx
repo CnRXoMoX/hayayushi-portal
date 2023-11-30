@@ -15,6 +15,7 @@ import {
     useColorModeValue,
     Stack,
     Image,
+    Center
 } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 
@@ -28,7 +29,6 @@ import { JWT_KEY } from '@/config';
 
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Home', href: '/' },
-  { name: 'Dashboard', href: "/HomeLogin" },
   { name: 'Attendance', href: "/Attendance" },
   { name: 'Staff', href: "/" },
   { name: 'Sales', href: "/" }
@@ -43,15 +43,17 @@ const NavLink = ({ href, children, ...rest }: NavItemProps) => {
     return (
       <Box
         as="a"
-        px={2}
-        py={1}
+        px={{ base: "2px", "2xl": "5px"}}
+        py={2}
         rounded={'md'}
         _hover={{
           textDecoration: 'none',
-          bg: useColorModeValue('gray.200', 'gray.700'),
+          bg: "#F5603C",
         }}
         href={href}>
-        {children}
+        <Text color="gray.200" fontFamily="Inter" fontSize={{ base: "16px", "2xl": "25px" }} fontWeight="s" pl="7px" pr="7px">
+          {children}
+        </Text>
       </Box>
     )
   }
@@ -85,8 +87,8 @@ export default function NavBar() {
     return (
       <>
         {user && (
-          <Box bg={useColorModeValue('gray.100', 'gray.900')} mb={2} px={4}>
-            <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+          <Box bg="#861616" mb={2} px={4}>
+            <Flex h={{ base: "60px", "2xl": "121"}} alignItems={'center'} justifyContent={'space-between'}>
               {user && (
                 <IconButton
                   size={'md'}
@@ -98,7 +100,10 @@ export default function NavBar() {
               )}
               <HStack spacing={8} alignItems={'center'}>
                 <Box>
-                  <Image boxSize={10} width={10} src="https://media.discordapp.net/attachments/1171170655996223580/1177527001100328980/1-AMSP5NxYEUeykrCJIwU9FTVCyxuVTQwYmH9qWIE.png?ex=6572d47a&is=65605f7a&hm=061d82fd3754627d5cd1cf28a679e481c2bf45770fdcb0b623fda2d6e5fac07c&=&format=webp" alt="Hayayushi" />
+                  <Flex align="center">
+                    <Image boxSize={{ base: "50px", "2xl": "90px"}} width={{ base: "70px", "2xl": "124px"}} src="https://media.discordapp.net/attachments/1171170655996223580/1177527001100328980/1-AMSP5NxYEUeykrCJIwU9FTVCyxuVTQwYmH9qWIE.png?ex=6572d47a&is=65605f7a&hm=061d82fd3754627d5cd1cf28a679e481c2bf45770fdcb0b623fda2d6e5fac07c&=&format=webp" alt="Hayayushi" />
+                    <Text color="gray.200" fontSize={{  base: "24", "2xl": "32px" }} fontFamily="JejuHallasan">HAYAYUSHI</Text>
+                  </Flex>
                 </Box> {user && (
                   <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
                     {LinkItems.map((link) => (
@@ -113,23 +118,27 @@ export default function NavBar() {
                     <MenuButton
                       as={Button}
                       rounded={'full'}
-                      variant={'link'}
                       cursor={'pointer'}
-                      minW={0}>
-                      <Avatar
-                        size={'sm'}
-                        src={
-                          'https://avatars.dicebear.com/api/male/username.svg'
-                        }
-                      />
+                      variant={'link'}
+                      _hover={{bgColor: '#F5603C'}}
+                      minW={0}
+                      bg="#861616">
+                      <Flex direction="row" justify="space-between">
+                        <Avatar
+                          size={{base: 'sm', "2xl": 'md'}}
+                          src={
+                            'https://avatars.dicebear.com/api/male/username.svg'
+                          }
+                        />
+                      </Flex>
                     </MenuButton>
                     <MenuList>
-                      <MenuItem>Account</MenuItem>
+                      <MenuItem fontSize={{"2xl": "20px"}}>Account</MenuItem>
                       {hasAllowedRole && (
-                        <MenuItem onClick={handleSiteSettings}>Site Settings</MenuItem>
+                        <MenuItem onClick={handleSiteSettings} fontSize={{"2xl": "20px"}}>Site Settings</MenuItem>
                       )}
                       <MenuDivider />
-                      <MenuItem onClick={logout}>Logout</MenuItem>
+                      <MenuItem onClick={logout} fontSize={{"2xl": "20px"}}>Logout</MenuItem>
                     </MenuList>
                   </Menu>
                 </Flex>
