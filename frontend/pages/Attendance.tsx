@@ -24,9 +24,6 @@ const Attendace: NextPage = ({ data }) => {
     return (
         <Container maxW="container.xl">
             <Card mt={5}>
-                <CardHeader>
-                    <Text fontSize="xl" fontWeight="bold">Your Attendance</Text>
-                </CardHeader>
                 <CardBody p="6px 0px 6px 0px">
                     <AttendanceTable userID={data} />
                     <AttendanceButton userID={data} />

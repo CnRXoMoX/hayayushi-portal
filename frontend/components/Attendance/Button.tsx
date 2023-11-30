@@ -52,12 +52,6 @@ const AttendanceButton = ({ userID }) => {
                 userid: userID
             }).then(response => {
                 if(response.status === 200) {
-                    toast({
-                        title: 'Clock In',
-                        description: 'You\'ve clocked in successfuly!',
-                        status: 'success',
-                        isClosable: true,
-                    });
                     setClockedIn(true);
                     window.location.reload(false);
                 }
@@ -73,12 +67,6 @@ const AttendanceButton = ({ userID }) => {
                 userid: userID
             }).then(response => {
                 if(response.status === 200) {
-                    toast({
-                        title: 'Clock Out',
-                        description: 'You\'ve clocked out successfuly!',
-                        status: 'success',
-                        isClosable: true,
-                    });
                     setClockedIn(false);
                     window.location.reload(false);
                 }

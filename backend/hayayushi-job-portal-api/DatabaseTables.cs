@@ -41,7 +41,7 @@ namespace hayayushi_job_portal_api
                 connection.Open();
 
                 string createTableQuery = @"
-                CREATE TABLE `users_attandance` (
+                CREATE TABLE IF NOT EXISTS `users_attandance` (
                   `attendanceid` int(11) NOT NULL,
                   `userid` int(11) NOT NULL,
                   `clockin` datetime NOT NULL DEFAULT current_timestamp(),
@@ -63,7 +63,7 @@ namespace hayayushi_job_portal_api
                 connection.Open();
 
                 string createTableQuery = @"
-                CREATE TABLE `users_attendance_total` (
+                CREATE TABLE IF NOT EXISTS `users_attendance_total` (
                   `userid` int(11) NOT NULL,
                   `date` datetime NOT NULL DEFAULT current_timestamp(),
                   `totalMinutes` int(11) NOT NULL
