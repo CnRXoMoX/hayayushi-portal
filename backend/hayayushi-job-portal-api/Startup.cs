@@ -51,12 +51,24 @@ namespace hayayushi_job_portal_api
             });
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowReactApp", builder =>
+                if(Environment.GetEnvironmentVariable("IsDevelopment") == "FALSE")
                 {
-                    builder.AllowAnyOrigin()
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
-                });
+                    options.AddPolicy("AllowReactApp", builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+                }
+                else
+                {
+                    options.AddPolicy("AllowReactApp", builder =>
+                    {
+                        builder.WithOrigins(Environment.GetEnvironmentVariable("DOMAIN"))
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+                }
             });
         }
 
