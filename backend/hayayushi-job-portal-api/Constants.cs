@@ -67,5 +67,23 @@ namespace hayayushi_job_portal_api
             public DateTime Date { get; set; }
             public int TotalMinutes { get; set; }
         }
+
+        public class UserBonus
+        {
+            public int UserID { get; set; }
+            public DateTime Date { get; set; }
+            public int Bonus { get; set; }
+        }
+
+        public class UsersAttendanceTotalInput
+        {
+            public string startdate { get; set; }
+            public string enddate { get; set; }
+        }
+
+        public class GetDateAPayroll
+        {
+            public string date { get; set; }
+        }
     }
 }

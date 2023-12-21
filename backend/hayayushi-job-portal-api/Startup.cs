@@ -55,7 +55,7 @@ namespace hayayushi_job_portal_api
                 {
                     options.AddPolicy("AllowReactApp", builder =>
                     {
-                        builder.AllowAnyOrigin()
+                        builder.WithOrigins(Environment.GetEnvironmentVariable("DOMAIN"))
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
@@ -64,7 +64,7 @@ namespace hayayushi_job_portal_api
                 {
                     options.AddPolicy("AllowReactApp", builder =>
                     {
-                        builder.WithOrigins(Environment.GetEnvironmentVariable("DOMAIN"))
+                        builder.AllowAnyOrigin()
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });

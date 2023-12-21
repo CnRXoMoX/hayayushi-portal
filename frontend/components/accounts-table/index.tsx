@@ -37,6 +37,7 @@ const RoleItems: Array<RoleItemProps> = [
     { name: 'Executive Chef' },
     { name: 'Second Chef' },
     { name: 'Station Chef' },
+    { name: 'Line Chef' },
     { name: 'Line Cook' },
     { name: 'Commis Chef' },
     { name: 'Kitchen Porter' }
