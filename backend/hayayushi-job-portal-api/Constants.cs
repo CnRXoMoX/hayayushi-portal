@@ -85,5 +85,47 @@ namespace hayayushi_job_portal_api
         {
             public string date { get; set; }
         }
+
+        public class UserSales
+        {
+            public int UserID { get; set; }
+            public string SaleContext { get; set; }
+            public int TotalSale { get; set; }
+        }
+
+        public class ClaimPayroll
+        {
+            public int UserID { get; set; }
+            public string Date { get; set; }
+            public int Claimed { get; set; }
+        }
+
+        public class UserAccountStats
+        { 
+            public string UserID { get; set; }
+        }
+
+        public class UserAccountStatsRes
+        {
+            public int UserID { get; set; }
+            public string Username { get; set; }
+            public string Rank { get; set; }
+            public string formattedDate { get; set; }
+            public int TotalMinutes { get; set; }
+            public int TotalSales { get; set; }
+            public int isClaimed { get; set; }
+        }
+
+        public class UserAccountTotalPayout
+        {
+            public int UserID { get; set; }
+        }
+
+        public class UserAccountTotalPayoutRes
+        {
+            public int TotalMinutes { get; set; }
+            public int TotalSales { get; set; }
+        }
+
     }
 }

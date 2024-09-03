@@ -16,6 +16,7 @@ import {
     Input,
     Center,
     Td,
+    Checkbox
 } from '@chakra-ui/react'
 
 import { API_URL } from '@/config';
@@ -23,7 +24,9 @@ import Card from '../Card/Card';
 import CardHeader from '../Card/CardHeader';
 import CardBody from '../Card/CardBody';
 import CalculateAttendancePay from '@/utils/AttendancePay';
+import CalculateBonusSalary from '@/utils/SalesPay';
 import formatTotalMinutes from '@/utils/formattedTime';
+import { useToast } from '@chakra-ui/react';
 
 const PayrollTable = ({ dates }) =>  {
     const textColor = useColorModeValue("gray.700", "white");
@@ -80,8 +83,8 @@ const PayrollTable = ({ dates }) =>  {
 
                     <Flex align="center" justify="space-between">
                         <Select value={date} onChange={handleDateChange} mb={5} width="30%" height={{base: "46px", "2xl": "68px"}} fontSize={{base: "26px", "2xl": "36px"}}>
-                            {dates.map((date) => (
-                                <option key={date} value={date.formattedDate}>{date.formattedDate}</option>
+                            {dates.map((date, index) => (
+                                <option key={index} value={date.formattedDate}>{date.formattedDate}</option>
                             ))}
                         </Select>
                         <Input variant='flushed' placeholder='Search Name' onChange={(e) => handleSearch(e.target.value)} fontSize={{base: "26px" , "2xl": "36px"}} width="30%"/>
@@ -96,6 +99,8 @@ const PayrollTable = ({ dates }) =>  {
                                 </Th>
                                 <Th borderColor={borderColor} color="#cc2525" fontSize={{ "2xl": "26px" }}>Rank</Th>
                                 <Th borderColor={borderColor} color="#cc2525" fontSize={{ "2xl": "26px" }}>Attendance</Th>
+                                <Th borderColor={borderColor} color="#cc2525" fontSize={{ "2xl": "26px" }}>Sales</Th>
+                                <Th borderColor={borderColor} color="#cc2525" fontSize={{ "2xl": "26px" }}>Bonus</Th>
                                 <Th borderColor={borderColor} color="#cc2525" fontSize={{ "2xl": "26px" }}>Total Earnings</Th>
                             </Tr>
                         </Thead>
@@ -103,10 +108,14 @@ const PayrollTable = ({ dates }) =>  {
                             {filteredPayrollData.map(pdata => {
                                 return (
                                     <TablesTableRow
+                                        userid={pdata.id}
+                                        date={date}
+                                        claimed={pdata.isClaimed}
                                         username={pdata.username}
                                         userrank={pdata.rank}
                                         totalminutes={pdata.totalMinutes}
-                                        key={pdata.id}
+                                        sales={pdata.totalSales}
+                                        key={pdata.uid}
                                     />
                                 )
                             })}
@@ -119,19 +128,23 @@ const PayrollTable = ({ dates }) =>  {
 }
 
 function TablesTableRow(props) {
-    const { username, userrank, totalminutes } = props;
+    const { userid, date, claimed, username, userrank, totalminutes, sales } = props;
     const formatTime = formatTotalMinutes(totalminutes);
     const [totalSalary, setTotalSalary] = useState(null);
+    const [bonusSalary, setBonusesSalary] = useState(null);
     const textColor = useColorModeValue("black", "white");
     const titleColor = useColorModeValue("gray.700", "white");
     const bgStatus = useColorModeValue("gray.400", "navy.900");
     const borderColor = useColorModeValue("gray.200", "gray.600");
+    const toast = useToast();
 
     useEffect(() => {
         const calculateSalary = async () => {
           try {
             const attendanceSalary = await CalculateAttendancePay(userrank, totalminutes);
-            setTotalSalary(attendanceSalary);
+            const s_bonusSalary = await CalculateBonusSalary(sales);
+            setTotalSalary(attendanceSalary + s_bonusSalary);
+            setBonusesSalary(s_bonusSalary);
           } catch (error) {
             console.error("Error calculating attendance salary:", error.message);
           }
@@ -139,6 +152,43 @@ function TablesTableRow(props) {
 
         calculateSalary();
       }, [userrank, totalminutes]);
+
+    const handleClaimed = async (checked) => {
+        console.log(`userid: ${userid} date: ${date} claimed: ${checked}`)
+        const response = await axios.post(`${API_URL}/ClaimPayroll`, {
+            userID: userid,
+            date: date,
+            claimed: checked ? 1 : 0
+        })
+        .then(response => {
+            if(response.status === 200) {
+                toast({
+                    title: 'Payroll',
+                    description: checked ? 'Payroll Claimed' : 'Payroll Unclaimed',
+                    status: 'success',
+                    isClosable: true
+                });
+            }
+        })
+        .catch(error => {
+            console.log('Error:', error.message);
+            console.log('Stack trace:', error.stack);
+            if (error.response) {
+                console.log('Response data:', error.response.data);
+                console.log('Response status:', error.response.status);
+                if(error.response.status === 400) {
+                    toast({
+                        title: 'Error!',
+                        description: 'Database Error!',
+                        status: 'error',
+                        isClosable: true,
+                    })
+                    router.push('/');
+                    return;
+                }
+            }
+        });
+    }
 
     return (
         <Tr>
@@ -172,9 +222,33 @@ function TablesTableRow(props) {
             </Td>
 
             <Td borderColor={borderColor}>
+                <Text fontSize={{ base: "md", "2xl": "xl" }} color={textColor} fontWeight="bold">
+                    {sales}
+                </Text>
+            </Td>
+
+            <Td borderColor={borderColor}>
+                <Text fontSize={{ base: "md", "2xl": "xl" }} color={textColor} fontWeight="bold">
+                    {bonusSalary}
+                </Text>
+            </Td>
+
+            <Td borderColor={borderColor}>
                 <Text fontSize={{ base: "md", "2xl": "xl" }} color="green" fontWeight="bold">
                     ${totalSalary}
                 </Text>
+            </Td>
+
+            <Td borderColor={borderColor}>
+                {claimed ? (
+                    <Checkbox colorScheme="green" onChange={async (e) => { await handleClaimed(e.target.checked)}} defaultChecked>
+                        Claimed
+                    </Checkbox>
+                ) : (
+                    <Checkbox colorScheme="green" onChange={async (e) => { await handleClaimed(e.target.checked)}}>
+                        Claimed
+                    </Checkbox>
+                )}
             </Td>
         </Tr>
     );

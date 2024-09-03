@@ -43,7 +43,7 @@ const OurMenuHeader = () => {
             </Flex>
             <Flex align="center" mt={2}>
                 <Text ml="5rem" fontSize={{ md: "xs", "2xl": "md"}} fontWeight="bold">*Our best sellers are marked with </Text>
-                <Image src="https://media.discordapp.net/attachments/1175708838121447474/1179232869466525756/SmallHayayushiLogo.png?ex=65790931&is=65669431&hm=7e506c3a0f519d5b5a46a7a773a321c17ecd5bf667844b747a36d1e69d0ac4aa&=&format=webp&quality=lossless" boxSize={{ md: "20px", "2xl": "40px"}} width={{ md: "25px", "2xl": "50px" }} />
+                <Image src="/Images/SmallHayayushiLogo.png" boxSize={{ md: "20px", "2xl": "40px"}} width={{ md: "25px", "2xl": "50px" }} />
             </Flex>
             <Flex justifyContent="flex-end" mr={16} mt={{ md: "-3rem", "2xl": "-5rem"}}>
                 <Box borderRadius="20px" backgroundColor="#F5603C" p={5} textAlign="center">

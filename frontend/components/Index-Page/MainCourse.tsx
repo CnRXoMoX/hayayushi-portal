@@ -15,10 +15,11 @@ interface LinkItemProps {
 }
 
 const MainCourseItems: Array<LinkItemProps> = [
-    { name: 'Ramen', price: "1000", info: "Replenishes 75% Hunger and Thirst.",isBestSeller: true, image: "https://media.discordapp.net/attachments/1175708838121447474/1179470006782800084/pngegg.png?ex=6579e60b&is=6567710b&hm=2ddcc83663192165d719f6da6b8ccd30d9d40aef7038d0001e9760ec54ee9f99&=&format=webp" },
-    { name: 'Tonkatsu', price: "500", info: "Replenishes Hunger.", isBestSeller: false, image: "https://media.discordapp.net/attachments/1175708838121447474/1179470007114158240/pngegg.png?ex=6579e60b&is=6567710b&hm=b637bb54eb636e3441a599242ac202ca1ea19121c31e39657e1a0ed06fefc7b0&=&format=webp"},
-    { name: 'Tempura', price: "500", info: "Replenishes Hunger.", isBestSeller: false, image: "https://media.discordapp.net/attachments/1175708838121447474/1179470007554539562/pngegg_3.png?ex=6579e60b&is=6567710b&hm=48c51fd0b8fd258e9e6e417aad7200adf0d4783b7f1ab772c35e5484064f7f0a&=&format=webp"},
-    { name: 'Sushi', price: "1000", info: "Reduces Stress.", isBestSeller: true, image: "https://media.discordapp.net/attachments/1175708838121447474/1179470008666042419/pngegg_2.png?ex=6579e60b&is=6567710b&hm=32accd65c4f3dd458d2470dfb036ac76a8966084f2e5e3daec31b196b3a8dd3a&=&format=webp"}
+    { name: 'Ramen', price: "1000", info: "Replenishes 75% Hunger and Thirst.",isBestSeller: true, image: "/Images/MainCourse/ramen.png" },
+    { name: 'Takoyaki', price: "1500", info: "Replenishes 75% Hunger and Thirst + 50% Armor", isBestSeller: true, image: "/Images/MainCourse/ramen.png" },
+    { name: 'Tonkatsu', price: "500", info: "Replenishes Hunger.", isBestSeller: false, image: "/Images/MainCourse/tonkatsu.png"},
+    { name: 'Tempura', price: "500", info: "Replenishes Hunger.", isBestSeller: false, image: "/Images/MainCourse/tempura.png"},
+    { name: 'Sushi', price: "1000", info: "Reduces Stress.", isBestSeller: true, image: "/Images/MainCourse/sushi.png"}
 ]
 
 const MenuItemCard = ({ price, image, name, isBestSeller, info }) => {
@@ -34,7 +35,7 @@ const MenuItemCard = ({ price, image, name, isBestSeller, info }) => {
             p={3}
         >
             {isBestSeller && (
-                <Image boxSize={{ "2xl": "46px" }} width={{ "2xl": "65px" }} src="https://media.discordapp.net/attachments/1175708838121447474/1179232869466525756/SmallHayayushiLogo.png?ex=65790931&is=65669431&hm=7e506c3a0f519d5b5a46a7a773a321c17ecd5bf667844b747a36d1e69d0ac4aa&=&format=webp&quality=lossless" />
+                <Image boxSize={{ "2xl": "46px" }} width={{ "2xl": "65px" }} src="/Images/SmallHayayushiLogo.png" />
             )}
             <Flex justify="center" mt={{ md: !isBestSeller ? "23px" : undefined, "2xl": !isBestSeller ? "46px" : undefined}}>
                 <Image
@@ -50,7 +51,7 @@ const MenuItemCard = ({ price, image, name, isBestSeller, info }) => {
                         mt="-12px"
                         boxSize={{ md: "40px", "2xl": "80px"}}
                         width={{ md: "15px", "2xl": "30px"}}
-                        src="https://cdn.discordapp.com/attachments/1175708838121447474/1179522597176750171/Info.png?ex=657a1705&is=6567a205&hm=e85d7ab80073c29d5c086b7d2713327e95fa2a027b12aa628fd1d46be3432ede&"
+                        src="/Images/Info.png"
                     />
                 </Tooltip>
             </Flex>

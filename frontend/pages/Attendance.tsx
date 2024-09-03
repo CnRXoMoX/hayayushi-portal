@@ -19,6 +19,7 @@ import AttendanceTable from '@/components/Attendance/Table';
 import AttendanceButton from '@/components/Attendance/Button';
 
 import { API_URL, JWT_KEY } from '@/config/';
+import withAuth from '@/context/withAuth';
 
 const Attendace: NextPage = ({ data }) => {
     return (
@@ -33,7 +34,24 @@ const Attendace: NextPage = ({ data }) => {
     )
 }
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps = withAuth(async (context, decodedToken) => {
+    const pk = decodedToken.nameid;
+    const response = await axios.post(`${API_URL}/FetchUserData`, {
+        pk: pk,
+    }, {
+        httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+    });
+
+    const data = response.data.userid;
+
+    return {
+        props: {
+            data,
+        },
+    };
+})
+
+/*export const getServerSideProps = async (context) => {
     try {
         const userJWT = context.req.headers.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*=\s*([^;]*).*$)|^.*$/, '$1')
         if (!userJWT) {
@@ -60,6 +78,16 @@ export const getServerSideProps = async (context) => {
             },
         };
     } catch (error) {
+        if(error.message === "jwt expired") {
+
+
+            return {
+                redirect: {
+                    destination: '/Login'
+                },
+            }
+        }
+
         console.error('Error in getStaticProps:', error.message);
 
         return {
@@ -68,6 +96,6 @@ export const getServerSideProps = async (context) => {
             },
         };
     }
-}
+}*/
 
 export default Attendace

@@ -14,6 +14,7 @@ import {
 
 import AdminMenu from '@/components/site-settings-panel/site-panel';
 import { API_URL, JWT_KEY } from '@/config';
+import withAuth from '@/context/withAuth';
 
 const SiteSettings: NextPage = ({ data }) => {
     return (
@@ -31,41 +32,21 @@ const SiteSettings: NextPage = ({ data }) => {
     )
 }
 
-export const getServerSideProps = async (context) => {
-    try {
-        const userJWT = context.req.headers.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*=\s*([^;]*).*$)|^.*$/, '$1')
-        if (!userJWT) {
-            return {
-                notFound: true,
-            };
-        }
+export const getServerSideProps = withAuth(async (context, decodedToken) => {
+    const pk = decodedToken.nameid;
+    const response = await axios.post(`${API_URL}/FetchUserData`, {
+        pk: pk,
+    }, {
+        httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+    });
 
-        const secretKey = JWT_KEY;
-        const decodedToken = await Promise.resolve(jwt.verify(userJWT, secretKey));
-        const pk  = decodedToken.nameid;
+    const data = response.data.username;
 
-        const response = await axios.post(`${API_URL}/FetchUserData`, {
-            pk: pk,
-        }, {
-            httpsAgent: new https.Agent({ rejectUnauthorized: false }),
-        });
-
-        const data = response.data.username;
-
-        return {
-            props: {
-                data,
-            },
-        };
-    } catch (error) {
-        console.error('Error in getStaticProps:', error.message);
-
-        return {
-            props: {
-                data: null,
-            },
-        };
-    }
-}
+    return {
+        props: {
+            data,
+        },
+    };
+})
 
 export default SiteSettings

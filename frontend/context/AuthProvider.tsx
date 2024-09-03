@@ -41,6 +41,7 @@ export const AuthProvider = ({ children }) => {
         .catch(error => {
             console.log('Error:', error.message);
             console.log('Stack trace:', error.stack);
+            console.log('Error Response:', error.response);
             if (error.response) {
                 console.log('Response data:', error.response.data);
                 console.log('Response status:', error.response.status);
@@ -64,6 +65,7 @@ export const AuthProvider = ({ children }) => {
             isClosable: true
         });
         Cookies.remove('jwt', { path: "/" });
+        Cookies.remove('userName', { path: "/"});
         setUser(null);
         router.push("/Login");
     }

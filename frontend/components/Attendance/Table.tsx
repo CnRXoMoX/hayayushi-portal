@@ -72,7 +72,7 @@ const AttendanceTable = ({ userID }) => {
                 if(response.status === 200) {
                     console.log(response.data);
                     setAttendanceData(response.data.results);
-                    setOverallMinutes(response.data.totalMinutes[0]?.totalMinutes || null);
+                    setOverallMinutes(response.data.totalMinutes[0]?.totalMinutes || 0);
                 }
             })
         }

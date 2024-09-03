@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import queryString from 'query-string';
 import https from 'https';
-import { useToast } from '@chakra-ui/react'
+import { useToast } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
 import {

@@ -25,7 +25,7 @@ namespace hayayushi_job_portal_api.Controllers.Payroll
                     date = dateAPayroll.date
                 };
 
-                var query = "SELECT DISTINCT player.userid as id, player.username as username, player.role as rank, aTotal.totalMinutes FROM users as player JOIN users_attendance_total as aTotal ON player.userid = aTotal.userid WHERE DATE(aTotal.enddate) = STR_TO_DATE(@date, '%M %e, %Y');";
+                var query = "SELECT DISTINCT CONCAT(player.userid, '_', DATE_FORMAT(aTotal.enddate, '%Y%m%d')) as uid, player.userid as id, player.username as username, player.role as rank, aTotal.totalMinutes, aTotal.totalSales, aTotal.isClaimed FROM users as player JOIN users_attendance_total as aTotal ON player.userid = aTotal.userid WHERE DATE(aTotal.enddate) = STR_TO_DATE(@date, '%M %e, %Y')";
                 var results = connection.QueryAsync(query, qparams).GetAwaiter().GetResult();
                 return Ok(results);
             }

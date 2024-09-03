@@ -20,12 +20,13 @@ interface LinkItemProps {
 }
 
 const LinkItems: Array<LinkItemProps> = [
-    { name: 'Staff List', href: '/SiteSettings/Staffs', icon: IoIosPersonAdd },
+    //{ name: 'Staff List', href: '/SiteSettings/Staffs', icon: IoIosPersonAdd },
     { name: 'Manage Accounts', href: "/SiteSettings/ManageAccounts?page=1", icon: IoIosContact },
     { name: 'Cut Off', href: "/SiteSettings/Payroll", icon: IoIosContact },
     { name: 'Staff\'s Payout', href: "/SiteSettings/StaffPayout", icon: IoIosContact },
-    { name: 'Staff Attendance', href: "/SiteSettings/StaffAttendance", icon: IoIosContact },
-    { name: 'Add Bonus', href: "/SiteSettings/AddBonus", icon: IoIosContact }
+    //{ name: 'Staff Attendance', href: "/SiteSettings/StaffAttendance", icon: IoIosContact },
+    //{ name: 'Add Bonus', href: "/SiteSettings/AddBonus", icon: IoIosContact },
+    { name: "Add Account", href: "/SiteSettings/AddAccount", icon: IoIosContact }
 ];
 
 const SiteAdminMenu = () => {

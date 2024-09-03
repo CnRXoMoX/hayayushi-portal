@@ -11,6 +11,7 @@ import {
 
 import { API_URL } from '@/config';
 import PayrollTable from '@/components/site-settings-panel/payroll-table';
+import withAuth from '@/context/withAuth';
 
 const StaffPayout: NextPage = ({ data }) => {
     return (
@@ -20,28 +21,19 @@ const StaffPayout: NextPage = ({ data }) => {
     )
 }
 
-export const getServerSideProps = async () => {
-    try {
-        const response = await axios.post(`${API_URL}/Payroll/GetDates`, {}, {
-            httpsAgent: new https.Agent({ rejectUnauthorized: false }),
-        });
+export const getServerSideProps = withAuth(async (context, decodedToken) => {
+    const pk = decodedToken.nameid;
+    const response = await axios.post(`${API_URL}/Payroll/GetDates`, {}, {
+        httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+    });
 
-        const data = response.data;
+    const data = response.data;
 
-        return {
-            props: {
-                data,
-            },
-        };
-    } catch (error) {
-        console.error('Error in getStaticProps:', error.message);
-
-        return {
-            props: {
-                data: null,
-            },
-        };
-    }
-}
+    return {
+        props: {
+            data,
+        },
+    };
+})
 
 export default StaffPayout
