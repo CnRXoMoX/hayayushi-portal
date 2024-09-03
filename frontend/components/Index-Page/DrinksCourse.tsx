@@ -15,10 +15,10 @@ interface LinkItemProps {
 }
 
 const DrinkCourseItems: Array<LinkItemProps> = [
-    { name: 'Jakult', price: "500", info: "Replenishes Thirst.", isBestSeller: true, image: "https://media.discordapp.net/attachments/1175708838121447474/1179470009710411816/f653e5db0f02dc5bfb67a335a2dd3b6b-removebg-preview.png?ex=6579e60b&is=6567710b&hm=29e1cf70bbbcfd9720bc3aac99ffa5c75824e5483185678f41008c0cbafde36f&=&format=webp" },
-    { name: 'Green Tea', price: "1000", info: "Reduces Stress.", isBestSeller: false, image: "https://media.discordapp.net/attachments/1175708838121447474/1179470010578632765/pngegg.png?ex=6579e60c&is=6567710c&hm=5d354833572187b3788d2fd60cc6477c09661cb013ee4c1940c9c1f7ef2c5921&=&format=webp"},
-    { name: 'Soju', price: "1500", info: "Temporary Speed Boost. (6-8 sec.)", isBestSeller: false, image: "https://media.discordapp.net/attachments/1175708838121447474/1179470009332945017/SOJU.png?ex=6579e60b&is=6567710b&hm=5bd7ab3d835d747decd431b9bfb4ca477ee551acd1c6b3cc564e1e29d795ba2e&=&format=webp"},
-    { name: 'Matcha Ice Cream', price: "500", info: "Reduces a larger amount of stress but makes you thirsty.", isBestSeller: true, image: "https://media.discordapp.net/attachments/1175708838121447474/1179470010117279774/pngegg.png?ex=6579e60b&is=6567710b&hm=eb62a2667ed5c934f740014a08631cd6ced494a4c782330e0f1f62fb16b012a1&=&format=webp"}
+    { name: 'Jakult', price: "500", info: "Replenishes Thirst.", isBestSeller: false, image: "/Images/DrinksCourse/jakult.png" },
+    { name: 'Green Tea', price: "1000", info: "Reduces Stress.", isBestSeller: false, image: "/Images/DrinksCourse/tea.png"},
+    { name: 'Soju', price: "1500", info: "Temporary Speed Boost. (6-8 sec.)", isBestSeller: true, image: "/Images/DrinksCourse/soju.png"},
+    { name: 'Matcha Ice Cream', price: "500", info: "Reduces a larger amount of stress but makes you thirsty.", isBestSeller: true, image: "/Images/DrinksCourse/icecream.png"}
 ]
 
 const MenuItemCard = ({ price, image, name, isBestSeller, info }) => {
@@ -34,7 +34,7 @@ const MenuItemCard = ({ price, image, name, isBestSeller, info }) => {
             p={3}
         >
             {isBestSeller && (
-                <Image boxSize={{ "2xl": "46px" }} width={{ "2xl": "65px" }} src="https://media.discordapp.net/attachments/1175708838121447474/1179232869466525756/SmallHayayushiLogo.png?ex=65790931&is=65669431&hm=7e506c3a0f519d5b5a46a7a773a321c17ecd5bf667844b747a36d1e69d0ac4aa&=&format=webp&quality=lossless" />
+                <Image boxSize={{ "2xl": "46px" }} width={{ "2xl": "65px" }} src="/Images/SmallhayayushiLogo.png" />
             )}
             <Flex justify="center" mt={{ md: !isBestSeller ? "23px" : undefined, "2xl": !isBestSeller ? "46px" : undefined}}>
                 <Image
@@ -50,7 +50,7 @@ const MenuItemCard = ({ price, image, name, isBestSeller, info }) => {
                         mt="-12px"
                         boxSize={{ md: "40px", "2xl": "80px"}}
                         width={{ md: "15px", "2xl": "30px"}}
-                        src="https://cdn.discordapp.com/attachments/1175708838121447474/1179522597176750171/Info.png?ex=657a1705&is=6567a205&hm=e85d7ab80073c29d5c086b7d2713327e95fa2a027b12aa628fd1d46be3432ede&"
+                        src="/Images/Info.png"
                     />
                 </Tooltip>
             </Flex>

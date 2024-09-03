@@ -31,7 +31,7 @@ const LinkItems: Array<LinkItemProps> = [
   { name: 'Home', href: '/' },
   { name: 'Attendance', href: "/Attendance" },
   { name: 'Staff', href: "/" },
-  { name: 'Sales', href: "/" }
+  { name: 'Sales', href: "/Sales" }
 ]
 
 interface NavItemProps {
@@ -84,9 +84,17 @@ export default function NavBar() {
       router.push("/SiteSettings");
     }
 
+    const handleAccountProfile = () => {
+      router.push("/Account");
+    }
+
+    const LoginRouter = () => {
+      router.push("/Login");
+    }
+
     return (
       <>
-        {user && (
+        {user ? (
           <Box bg="#861616" mb={2} px={4}>
             <Flex h={{ base: "60px", "2xl": "121"}} alignItems={'center'} justifyContent={'space-between'}>
               {user && (
@@ -101,7 +109,7 @@ export default function NavBar() {
               <HStack spacing={8} alignItems={'center'}>
                 <Box>
                   <Flex align="center">
-                    <Image boxSize={{ base: "50px", "2xl": "90px"}} width={{ base: "70px", "2xl": "124px"}} src="https://media.discordapp.net/attachments/1171170655996223580/1177527001100328980/1-AMSP5NxYEUeykrCJIwU9FTVCyxuVTQwYmH9qWIE.png?ex=6572d47a&is=65605f7a&hm=061d82fd3754627d5cd1cf28a679e481c2bf45770fdcb0b623fda2d6e5fac07c&=&format=webp" alt="Hayayushi" />
+                    <Image boxSize={{ base: "50px", "2xl": "90px"}} width={{ base: "70px", "2xl": "124px"}} src="/favicon.png" alt="Hayayushi" />
                     <Text color="gray.200" fontSize={{  base: "24", "2xl": "32px" }} fontFamily="JejuHallasan">HAYAYUSHI</Text>
                   </Flex>
                 </Box> {user && (
@@ -133,7 +141,7 @@ export default function NavBar() {
                       </Flex>
                     </MenuButton>
                     <MenuList>
-                      <MenuItem fontSize={{"2xl": "20px"}}>Account</MenuItem>
+                      <MenuItem onClick={handleAccountProfile} fontSize={{"2xl": "20px"}}>Account</MenuItem>
                       {hasAllowedRole && (
                         <MenuItem onClick={handleSiteSettings} fontSize={{"2xl": "20px"}}>Site Settings</MenuItem>
                       )}
@@ -143,6 +151,68 @@ export default function NavBar() {
                   </Menu>
                 </Flex>
               )}
+            </Flex>
+
+            {isOpen ? (
+              <Box pb={4} display={{ md: 'none' }}>
+                <Stack as={'nav'} spacing={4}>
+                  {LinkItems.map((link) => (
+                    <NavLink key={link.name} href={link.href}>{link.name}</NavLink>
+                  ))}
+                </Stack>
+              </Box>
+            ) : null}
+          </Box>
+        ) : (
+          <Box bg="#861616" mb={2} px={4}>
+            <Flex h={{ base: "60px", "2xl": "121"}} alignItems={'center'} justifyContent={'space-between'}>
+              {user && (
+                <IconButton
+                  size={'md'}
+                  icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+                  aria-label={'Open Menu'}
+                  display={{ md: 'none' }}
+                  onClick={isOpen ? onClose : onOpen}
+                />
+              )}
+              <HStack spacing={8} alignItems={'center'}>
+                <Box>
+                  <Flex align="center">
+                    <Image boxSize={{ base: "50px", "2xl": "90px"}} width={{ base: "70px", "2xl": "124px"}} src="/favicon.png" alt="Hayayushi" />
+                    <Text color="gray.200" fontSize={{  base: "24", "2xl": "32px" }} fontFamily="JejuHallasan">HAYAYUSHI</Text>
+                  </Flex>
+                </Box> {user && (
+                  <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
+                    {LinkItems.map((link) => (
+                      <NavLink key={link.name} href={link.href}>{link.name}</NavLink>
+                    ))}
+                  </HStack>
+                )}
+              </HStack>
+                <Flex alignItems={'center'}>
+                  <Menu>
+                    <MenuButton
+                      as={Button}
+                      rounded={'full'}
+                      cursor={'pointer'}
+                      variant={'link'}
+                      _hover={{bgColor: '#F5603C'}}
+                      minW={0}
+                      bg="#861616">
+                      <Flex direction="row" justify="space-between">
+                        <Avatar
+                          size={{base: 'sm', "2xl": 'md'}}
+                          src={
+                            'https://avatars.dicebear.com/api/male/username.svg'
+                          }
+                        />
+                      </Flex>
+                    </MenuButton>
+                    <MenuList>
+                      <MenuItem onClick={LoginRouter} fontSize={{"2xl": "20px"}}>Login</MenuItem>
+                    </MenuList>
+                  </Menu>
+                </Flex>
             </Flex>
 
             {isOpen ? (

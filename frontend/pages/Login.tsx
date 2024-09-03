@@ -22,7 +22,7 @@ const Login = () => {
         <Flex h="100vh" flexDirection={{base: "column", md: "row"}} bg="url('https://media.discordapp.net/attachments/1064738100019990558/1102048279639900262/image.png?ex=656bddf0&is=655968f0&hm=5663f636ec57733007fb00c2212840483d3fac76f7bb59b9b5dd5d8c4824ca61&=&format=webp&width=841&height=473')" bgSize="cover" bgPosition="center">
       {/* Left side */}
       <Flex flexDir="column" justify="center" alignItems={{base: "center", md: "flex-end"}} flex={{base: "1", md: "1"}}>
-        <Text fontSize={{base: "3xl", md: "4x1"}} fontWeight="bold" mb={{base: "6", md: "8"}} ml={{base: "0", md: "5"}} color="white">
+        <Text fontSize={{base: "3xl", md: "4x1"}} fontWeight="bold" mb={{base: "6", md: "8"}} ml={{base: "0", md: "5"}} color="black">
             Hayayushi Job Portal
         </Text>
       </Flex>

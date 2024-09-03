@@ -16,7 +16,7 @@ import {
 
 import { API_URL } from '@/config';
 
-const Login = () => {
+const AddAcount = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [cPassword, setCpassword] = useState('');
@@ -44,11 +44,10 @@ const Login = () => {
           if(response.status === 200) {
             toast({
                 title: 'Success',
-                description: 'You\'re now registered!',
+                description: 'User is now registered!',
                 status: 'success',
                 isClosable: true
             });
-            router.push("/Login");
           }
         })
         .catch(error => {
@@ -82,7 +81,7 @@ const Login = () => {
       <Flex flexDir="column" justify="center" flex={{base: "1", md: "1"}} p={{base: "4", md: "12"}} mt={{base: "8", md: "0"}}>
         <Box bg="white" boxShadow="lg" p={{base: "4", md: "8"}}>
           <Text fontSize={{base: "2xl", md: "3xl"}} fontWeight="bold" mb={{base: "4", md: "8"}}>
-            Register an account
+            Add an account
           </Text>
 
           <Box mb={{base: "4", md: "6"}}>
@@ -100,7 +99,7 @@ const Login = () => {
             <Input type="password" placeholder="Confirm password" value={cPassword} onChange={(e) => setCpassword(e.target.value)}/>
           </Box>
 
-          <Button bg="blue.500" color="white" _hover={{bg: "blue.600"}} mb={{base: "4", md: "6"}} fontSize={{base: "sm", md: "md"}} onClick={handlerRegister}>Register</Button>
+          <Button bg="blue.500" color="white" _hover={{bg: "blue.600"}} mb={{base: "4", md: "6"}} fontSize={{base: "sm", md: "md"}} onClick={handlerRegister}>Add Account</Button>
 
           <Text mt={{base: "4", md: "6"}} fontSize={{base: "sm", md: "md"}}>
 
@@ -111,4 +110,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default AddAcount;

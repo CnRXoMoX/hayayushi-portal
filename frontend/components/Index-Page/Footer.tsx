@@ -19,7 +19,7 @@ const Line = () => {
 const DevelopedBy = () => {
     return (
         <Box width={{ md: "124px", "2xl": "227px"}}>
-            <Text fontFamily="Inter" fontSize={{ "2xl": "25px" }} color="white">Developed by: Pyro Hayasaka & Red Hayasaka</Text>
+            <Text fontFamily="Inter" fontSize={{ "2xl": "25px" }} color="white">Developed by: Pyro Hayasaka</Text>
         </Box>
     )
 }
@@ -45,7 +45,7 @@ const Footer = () => {
             <Line />
             <Flex mt={3} mb={3} align="center" justify="space-between">
                 <Flex align="flex-start" align="center">
-                    <Image boxSize={{ md: "62.5","2xl": "125px" }} width={{ md: "77px", "2xl" : "154px" }} src="https://media.discordapp.net/attachments/1171170655996223580/1177527001100328980/1-AMSP5NxYEUeykrCJIwU9FTVCyxuVTQwYmH9qWIE.png?ex=6572d47a&is=65605f7a&hm=061d82fd3754627d5cd1cf28a679e481c2bf45770fdcb0b623fda2d6e5fac07c&=&format=webp" alt="Hayayushi"/>
+                    <Image boxSize={{ md: "62.5","2xl": "125px" }} width={{ md: "77px", "2xl" : "154px" }} src="/favicon.png" alt="Hayayushi"/>
                     <Text fontSize={{ md: "25px", "2xl": "50px" }} fontFamily="Jockey One" color="white">Interested in Joining Us?</Text>
                 </Flex>
                 <Flex align="flex-center">

@@ -19,10 +19,14 @@ const AuthChecks = ({ children }: {children: React.ReactNode }) => {
     const toast = useToast();
 
     const protectedRoutes = [
-        { path: '/', component: Home, isAuthenticated: true, allowedRoles: ['Kitchen Porter', 'Commis Chef', 'Line Cook', 'Station Chef', 'Second Chef', 'Executive Chef', 'Manager'] },
+        { path: '/Attendance', component: SiteSettings, isAuthenticated: true, allowedRoles: ['Kitchen Porter', 'Commis Chef', 'Line Cook', 'Line Chef', 'Station Chef', 'Second Chef', 'Executive Chef', 'Manager'] },
+        { path: '/Account', component: SiteSettings, isAuthenticated: true, allowedRoles: ['Kitchen Porter', 'Commis Chef', 'Line Cook', 'Line Chef', 'Station Chef', 'Second Chef', 'Executive Chef', 'Manager'] },
 
         { path: '/SiteSettings', component: SiteSettings, isAuthenticated: true, allowedRoles: ['Manager'] },
-        { path: '/SiteSettings/ManageAccounts', component: ManageAccounts, isAuthenticated: true, allowedRoles: ['Manager'] }
+        { path: '/SiteSettings/ManageAccounts', component: ManageAccounts, isAuthenticated: true, allowedRoles: ['Manager'] },
+        { path: '/SiteSettings/Payroll', component: ManageAccounts, isAuthenticated: true, allowedRoles: ['Manager'] },
+        { path: '/SiteSettings/AddAccount', component: ManageAccounts, isAuthenticated: true, allowedRoles: ['Manager'] },
+        { path: '/SiteSettings/StaffPayout', component: ManageAccounts, isAuthenticated: true, allowedRoles: ['Manager'] }
     ];
 
     React.useEffect(() => {
