@@ -26,7 +26,7 @@ namespace hayayushi_job_portal_api.Controllers
                     date = await GetLatestDate()
                 };
 
-                var query = "SELECT DISTINCT player.userid as userid, player.username as username, player.role as rank, DATE_FORMAT(aTotal.enddate, '%M %e, %Y') AS formattedDate, aTotal.totalMinutes, aTotal.totalSales, aTotal.isClaimed FROM users as player JOIN users_attendance_total as aTotal ON aTotal.userid = player.userid WHERE DATE(aTotal.enddate) = STR_TO_DATE(@date, '%M %e, %Y') AND player.pk = @userid";
+                var query = "SELECT player.userid as userid, player.username as username, player.role as rank, DATE_FORMAT(IFNULL(aTotal.enddate, NOW()), '%M %e, %Y') AS formattedDate, IFNULL(aTotal.totalMinutes, 0) AS totalMinutes, IFNULL(aTotal.totalSales, 0) AS totalSales, IFNULL(aTotal.isClaimed, 0) AS isClaimed FROM users as player LEFT JOIN users_attendance_total as aTotal ON aTotal.userid = player.userid AND DATE(aTotal.enddate) = IFNULL(STR_TO_DATE(@date, '%M %e, %Y'), DATE(aTotal.enddate)) WHERE player.pk = @userid";
 
                 var data = await connection.QueryFirstOrDefaultAsync<Constants.UserAccountStatsRes>(query, qparams);
 

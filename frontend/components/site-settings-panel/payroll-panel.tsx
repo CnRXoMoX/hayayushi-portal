@@ -82,7 +82,7 @@ const PayrollPanel = () => {
     return (
         <>
             <Flex align="center" justify="space-between" mb={5}>
-                <Box align="flex-start" align="center">
+                <Box align="flex-starta center">
                     <Text fontSize={{ "2xl": "26px" }} fontWeight="bold">Start Date:</Text>
                     <Input
                         placeholder="Select Date and Time"
@@ -94,7 +94,7 @@ const PayrollPanel = () => {
                         onChange={handleStartDate}
                     />
                 </Box>
-                <Box align="flex-end" align="center">
+                <Box align="flex-end center">
                     <Text fontSize={{ "2xl": "26px" }} fontWeight="bold">End Date:</Text>
                     <Input
                         placeholder="Select Date and Time"

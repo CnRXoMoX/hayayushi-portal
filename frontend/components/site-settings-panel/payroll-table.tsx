@@ -77,7 +77,7 @@ const PayrollTable = ({ dates }) =>  {
                 <CardHeader p="6px 0px 22px 0px">
                     <Center>
                         <Text fontSize={{ base: "36px", "2xl": "46px"}} color="#861616" fontWeight="bold" mb={10}>
-                            Staff's Payroll
+                            Staff Payroll
                         </Text>
                     </Center>
 

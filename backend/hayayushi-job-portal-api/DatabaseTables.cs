@@ -26,12 +26,7 @@ namespace hayayushi_job_portal_api
                   `pk` varchar(60) NOT NULL
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
-                string addRootUser = @"
-                INSERT INTO `users` (`userid`, `username`, `password`, `role`, `pk`) VALUES
-                (2, 'Root', '$2a$11$evjprnzL/5gf3hMzkxwDqeV4GpUIV//gWj3TE15i7nDJ/.EFVQF/q', 'Manager', 'ILKW0R04BBGXYZAHCLYRJ3HST1EJG0');";
-
                 connection.Execute(createTableQuery);
-                connection.Execute(addRootUser);
 
                 Console.WriteLine("Created UsersTable");
             }

@@ -32,6 +32,28 @@ interface RoleItemProps {
     name: string;
 }
 
+interface ResetPasswordInfoProps {
+    isOpen: boolean;
+    onClose: () => void;
+    userID: string;
+    userName: string;
+}
+
+interface DeleteAccountConfirmProps {
+    isOpen: boolean;
+    onClose: () => void;
+    userID: string;
+    currentPage: number;
+}
+
+interface EditUserModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    userID: string;
+    currentPage: number;
+    onUpdateTable: (currentPage: number) => void;
+}
+
 const RoleItems: Array<RoleItemProps> = [
     { name: 'Manager' },
     { name: 'Executive Chef' },
@@ -43,7 +65,7 @@ const RoleItems: Array<RoleItemProps> = [
     { name: 'Kitchen Porter' }
 ];
 
-const ResetPasswordInfo = ({ isOpen, onClose, userID, userName }) => {
+const ResetPasswordInfo: React.FC<ResetPasswordInfoProps> = ({ isOpen, onClose, userID, userName }) => {
     const toast = useToast();
     const [password, setPassword] = useState(null);
 
@@ -84,7 +106,7 @@ const ResetPasswordInfo = ({ isOpen, onClose, userID, userName }) => {
     )
 }
 
-const DeleteAccountConfirm = ({ isOpen, onClose, userID, currentPage }) => {
+const DeleteAccountConfirm: React.FC<DeleteAccountConfirmProps> = ({ isOpen, onClose, userID, currentPage }) => {
     const toast = useToast();
     const router = useRouter();
 
@@ -94,7 +116,7 @@ const DeleteAccountConfirm = ({ isOpen, onClose, userID, currentPage }) => {
         })
         .then(response => {
             if(response.status === 200) {
-                window.location.reload(false);
+                window.location.reload();
                 router.push(`/SiteSettings/ManageAccounts?page=${currentPage}`);
                 toast({
                     title: 'User Deleted',
@@ -141,10 +163,10 @@ const DeleteAccountConfirm = ({ isOpen, onClose, userID, currentPage }) => {
     )
 }
 
-const EditUserModal = ({ isOpen, onClose, userID, currentPage, onUpdateTable }) => {
-    const [userName, setUsername] = useState(null);
-    const [updatedUsername, setUpdatedUsername] = useState(null);
-    const [role, setRole] = useState(null);
+const EditUserModal: React.FC<EditUserModalProps> = ({ isOpen, onClose, userID, currentPage, onUpdateTable }) => {
+    const [userName, setUsername] = useState<string>('');
+    const [updatedUsername, setUpdatedUsername] = useState<string>('');
+    const [role, setRole] = useState<string>('');
     const toast = useToast();
     const router = useRouter();
 
@@ -206,7 +228,7 @@ const EditUserModal = ({ isOpen, onClose, userID, currentPage, onUpdateTable }) 
         onUpdateTable(currentPage);
     }
 
-    const handleRoleChange = (event) => {
+    const handleRoleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setRole(event.target.value);
     }
 
@@ -244,7 +266,7 @@ const EditUserModal = ({ isOpen, onClose, userID, currentPage, onUpdateTable }) 
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>Editing '{userName}'</ModalHeader>
+                <ModalHeader>Editing {userName}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                     <Text>Name:</Text>
@@ -272,18 +294,18 @@ const AccountsList = () => {
     const [users, setUsers] = useState([]);
     const textColor = useColorModeValue("gray.700", "white");
     const borderColor = useColorModeValue("gray.200", "gray.600");
-    const [editingUserId, setEditingUserID] = useState(null);
+    const [editingUserId, setEditingUserID] = useState<string>('');
     const [currentPage, setCurrentPage] = useState(1); // Added currentPage state
     const [totalPages, setTotalPages] = useState(1); // Added totalPages state
     const itemsPerPage = 10; // Adjust the number of items per page as needed
 
-    const handleEdit = (userID) => {
+    const handleEdit = (userID: string) => {
 
         setEditingUserID(userID);
     }
 
     const handleCloseEdit = () => {
-        setEditingUserID(null);
+        setEditingUserID('');
     }
 
     const updateTable = async (page = 1) => {
@@ -315,7 +337,7 @@ const AccountsList = () => {
     useEffect(() => {
         const search = window.location.search;
         const parsed = queryString.parse(search);
-        const page = parsed.page || 1;
+        const page = parseInt(parsed.page as string, 10) || 1;
 
         const fetchData = async () => {
             updateTable(page);

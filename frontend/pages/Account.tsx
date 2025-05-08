@@ -39,6 +39,7 @@ export const getServerSideProps = withAuth(async (context, decodedToken) => {
 
     const data = response.data;
     console.log(data.username);
+
     return {
         props: {
             data,

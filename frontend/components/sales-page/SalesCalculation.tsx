@@ -207,7 +207,7 @@ const SalesMenu = ({ userID }) => {
                             <Text fontSize={{ "2xl": "30px"}} fontWeight="bold">Order List:</Text>
                             {menuItems.filter(item => item.quantity > 0).map((item, index) => {
                                 return(
-                                    <Text fontSize={{ "2xl": "26px"}}>
+                                    <Text fontSize={{ "2xl": "26px"}} key={index}>
                                         {item.name}: {item.quantity}pcs (${(item.quantity * item.price)})
                                     </Text>
                                 )

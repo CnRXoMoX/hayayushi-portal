@@ -193,8 +193,6 @@ const ProfileCard = ({ username, rank, userid, toggleChangePass }) => {
                 if(response.status === 200) {
                     const attendanceSalary = await CalculateAttendancePay(rank, response.data.totalMinutes);
                     const s_bonusSalary = await CalculateBonusSalary(response.data.totalSales);
-                    console.log(response.data);
-                    console.log(`USERID: ${userid}`)
                     setTotalSalary(attendanceSalary + s_bonusSalary);
                 }
             } catch (error) {
@@ -229,7 +227,8 @@ const AccountProfile = ({ data }) => {
 
     useEffect(() => {
         console.log(data);
-    })
+    });
+
     return (
         <Box>
             <ProfileCard username={data.username} rank={data.rank} userid={data.userID} toggleChangePass={onOpen}/>

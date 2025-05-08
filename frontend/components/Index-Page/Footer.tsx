@@ -44,7 +44,7 @@ const Footer = () => {
         >
             <Line />
             <Flex mt={3} mb={3} align="center" justify="space-between">
-                <Flex align="flex-start" align="center">
+                <Flex align="flex-start center">
                     <Image boxSize={{ md: "62.5","2xl": "125px" }} width={{ md: "77px", "2xl" : "154px" }} src="/favicon.png" alt="Hayayushi"/>
                     <Text fontSize={{ md: "25px", "2xl": "50px" }} fontFamily="Jockey One" color="white">Interested in Joining Us?</Text>
                 </Flex>

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { API_URL } from '@/config/';
 
-async function CalculateAttendance(startDate, endDate) {
+async function CalculateAttendance(startDate: string, endDate: string) {
     try {
         const response = await axios.post(`${API_URL}/Payroll/Attendance`, {
             startdate: startDate,

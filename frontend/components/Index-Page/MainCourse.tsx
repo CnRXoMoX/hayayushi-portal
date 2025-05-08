@@ -63,8 +63,8 @@ const MenuItemCard = ({ price, image, name, isBestSeller, info }) => {
 const MainCourseMenu = () => {
     return (
         <Flex flexWrap="wrap" justify="space-between" m={{ md: "20px", "2xl": "4rem"}} spacing={{ "2xl": "6px" }}>
-            {MainCourseItems.map((item) => (
-                <MenuItemCard name={item.name} info={item.info} price={item.price} isBestSeller={item.isBestSeller} image={item.image} />
+            {MainCourseItems.map((item, index) => (
+                <MenuItemCard key={index} name={item.name} info={item.info} price={item.price} isBestSeller={item.isBestSeller} image={item.image} />
             ))}
         </Flex>
     )
